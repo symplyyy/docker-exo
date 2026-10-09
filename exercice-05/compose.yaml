@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecole
+      MYSQL_USER: timeo
+      MYSQL_PASSWORD: timeo
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+
+volumes:
+  mysql-data:
