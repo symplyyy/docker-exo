@@ -1,0 +1,9 @@
+$ syft docker:shopapi:1.4.2 -o spdx-json=sbom.json
+exit=0
+$ jq '.packages | length' sbom.json
+340
+$ répartition par type (purl)
+apk: 18
+generic: 1
+npm: 320
+oci: 1

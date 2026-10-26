@@ -1,0 +1,3 @@
+shopapi:1.4.2        ok ok 
+shop-worker:1.0      ok ok ok ok 
+shop-worker:77bed97  ok ok ok ok 

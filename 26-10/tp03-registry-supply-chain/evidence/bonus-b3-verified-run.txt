@@ -1,0 +1,12 @@
+$ ./verified-run.sh registry.local:5000/shopapi:1.4.2 --rm --entrypoint id
+signature OK : registry.local:5000/shopapi@sha256:0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f
+uid=1000(node) gid=1000(node) groups=1000(node),1000(node)
+exit=0
+
+$ ./verified-run.sh registry.local:5000/demo:main-05 --rm   (image non signée)
+REFUSÉ : registry.local:5000/demo:main-05 (sha256:7fc4de8107c27a88c014a10ee00ca66dd396380453666a10e59e7b60f1d9c85a) n'est pas signée par cosign.pub
+exit=1
+
+$ ./verified-run.sh registry.local:5000/shop-worker:1.0 --rm   (non signée)
+REFUSÉ : registry.local:5000/shop-worker:1.0 (sha256:dc94962d1abf88053ae47a6eb417db8ad94b12a36119804ce1c5c735bc585f48) n'est pas signée par cosign.pub
+exit=1

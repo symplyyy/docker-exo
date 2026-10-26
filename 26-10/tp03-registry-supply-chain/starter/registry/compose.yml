@@ -1,0 +1,79 @@
+name: shop-registry
+
+services:
+  registry:
+    image: registry:2.8.3
+    restart: unless-stopped
+    volumes:
+      - registry-data:/var/lib/registry
+      - ./config/registry.yml:/etc/docker/registry/config.yml:ro
+      - ./auth/htpasswd:/auth/htpasswd:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:5001/debug/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks: [registry]
+
+  gateway:
+    image: nginx:1.29.8-alpine
+    restart: unless-stopped
+    depends_on:
+      registry:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:5005:5000"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs/registry.crt:/etc/nginx/certs/registry.crt:ro
+      - ./certs/registry.key:/etc/nginx/certs/registry.key:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsk", "https://127.0.0.1:5000/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      registry:
+        aliases: [registry.local]
+
+  mirror:
+    image: registry:2.8.3
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5001:5000"
+    volumes:
+      - mirror-data:/var/lib/registry
+      - ./config/mirror.yml:/etc/docker/registry/config.yml:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:5001/debug/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks: [registry]
+
+  ui:
+    image: joxit/docker-registry-ui:2.5.7
+    restart: unless-stopped
+    depends_on:
+      gateway:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      REGISTRY_TITLE: Shop SAS Registry
+      SINGLE_REGISTRY: "true"
+      NGINX_PROXY_PASS_URL: https://registry.local:5000
+      REGISTRY_SECURED: "true"
+      DELETE_IMAGES: "true"
+      SHOW_CONTENT_DIGEST: "true"
+      SHOW_CATALOG_NB_TAGS: "true"
+    networks: [registry]
+
+volumes:
+  registry-data:
+  mirror-data:
+
+networks:
+  registry:
+    name: shop-registry

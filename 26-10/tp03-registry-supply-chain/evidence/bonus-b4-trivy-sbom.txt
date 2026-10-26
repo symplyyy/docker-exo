@@ -1,0 +1,4 @@
+$ trivy sbom --server http://trivy-server:4954 --severity HIGH,CRITICAL --ignore-unfixed sbom.json
+   Node.js: 22 CVE
+(sbom.json = SBOM de la 1re version de shopapi:1.4.2, basée sur node:20-alpine ; scan sans avoir l image)
+(en local sans --server : "database may be in use by another process", le serveur tient le verrou du cache)

@@ -1,0 +1,43 @@
+$ docker compose ps
+SERVICE    STATUS                    PORTS
+gateway    Up 26 seconds (healthy)   127.0.0.1:5005->5000/tcp
+mirror     Up 31 seconds (healthy)   127.0.0.1:5001->5000/tcp
+registry   Up 31 seconds (healthy)   5000/tcp
+ui         Up 15 seconds             127.0.0.1:8081->80/tcp
+
+$ curl https://registry.local/v2/  (sans identifiants)
+HTTP 401
+$ curl sans --cacert (CA inconnue du système)
+   exit 60 (60 = certificat non approuvé)
+$ curl -u dev:mauvais /v2/
+HTTP 401
+$ curl -u dev:dev-pull-2024 /v2/_catalog
+{"repositories":["shopapi"]}
+$ TLS négocié
+   SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+   subjectAltName: host "registry.local" matched cert's "registry.local"
+   issuer: O=Shop SAS; CN=Shop SAS Internal Root CA
+   Docker-Distribution-Api-Version: registry/2.0
+
+$ RBAC : dev tente un push (POST /blobs/uploads/)
+{"errors":[{"code":"DENIED","message":"ce compte est en lecture seule"}]} HTTP 403
+$ RBAC : dev tente une suppression
+{"errors":[{"code":"DENIED","message":"ce compte est en lecture seule"}]} HTTP 403
+$ RBAC : dev se fait passer pour ci (avec son mot de passe)
+HTTP 401
+$ ci peut ouvrir un upload
+HTTP 202
+$ dev peut lire les tags
+{"name":"shopapi","tags":["1.4.2"]}
+
+
+$ docker login localhost:5005 -u ci --password-stdin
+Login Succeeded
+$ docker push localhost:5005/shopapi:1.4.2
+1.4.2: digest: sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab size: 856
+
+$ persistance : docker compose down && docker compose up -d --wait
+{"name":"shopapi","tags":["1.4.2"]}
+
+$ UI
+http://localhost:8081 -> HTTP 200

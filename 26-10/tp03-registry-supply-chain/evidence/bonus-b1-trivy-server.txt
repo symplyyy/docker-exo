@@ -1,0 +1,10 @@
+$ trivy image --download-db-only
+db ok
+$ trivy server --listen 0.0.0.0:4954 (conteneur trivy-server, réseau shop-registry, token)
+trivy-server Up 3 seconds
+$ client : trivy image --server http://trivy-server:4954 --token *** shopapi:1.4.2
+   shopapi:1.4.2 (alpine 3.23.7): 0 CVE
+   Node.js: 0 CVE
+   0.5s
+$ client sans token
+2026-10-26T09:18:59Z	FATAL	Fatal error	run error: image scan error: scan error: scan failed: failed analysis: unable to get missing layers: unable to 

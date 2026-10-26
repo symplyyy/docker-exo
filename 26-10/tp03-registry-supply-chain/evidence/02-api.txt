@@ -1,0 +1,27 @@
+### Dépôts : GET /v2/_catalog
+{"repositories":["cache","shop-worker","shopapi"]}
+### Tags de shopapi : GET /v2/shopapi/tags/list
+{"name":"shopapi","tags":["77bed97","1.4.2","1.0"]}
+### Digest de shopapi:1.0 : HEAD /v2/shopapi/manifests/1.0 (Accept: index OCI + manifest list + manifest v2)
+Docker-Content-Digest: sha256:a782941560ad28b88570afede2ca9d488dd4c7835fe3b592539ace43cf8fa80c
+### Même HEAD sans en-tête Accept (le registre suppose un vieux client schema1) :
+   HTTP 404
+### Tags pointant sur sha256:a782941560ad28b88570afede2ca9d488dd4c7835fe3b592539ace43cf8fa80c :
+   shopapi:77bed97
+   shopapi:1.0
+### DELETE /v2/shopapi/manifests/sha256:a782941560ad28b88570afede2ca9d488dd4c7835fe3b592539ace43cf8fa80c
+HTTP 202
+### Tags après suppression :
+{"name":"shopapi","tags":["1.4.2"]}
+$ du -sh /var/lib/registry (avant GC)
+343.8M	/var/lib/registry
+$ registry garbage-collect --dry-run (extrait)
+161 blobs marked, 1 blobs and 0 manifests eligible for deletion
+$ registry garbage-collect --delete-untagged /etc/docker/registry/config.yml
+time="2026-10-26T09:00:43.40777346Z" level=info msg="Deleting blob: /docker/registry/v2/blobs/sha256/98/982364b60c770d96cfa0a6715db833beafd53272d8da63a1f5c99bb315de0269" go.version=go1.20.8 instance.id=dac25ef0-9f09-48ec-a776-2eae86948a1f service=registry 
+blob eligible for deletion: sha256:d474d27992e7419129bce722daecec53cdff04932b593f55e367a992cbf455ab
+time="2026-10-26T09:00:43.407826418Z" level=info msg="Deleting blob: /docker/registry/v2/blobs/sha256/d4/d474d27992e7419129bce722daecec53cdff04932b593f55e367a992cbf455ab" go.version=go1.20.8 instance.id=dac25ef0-9f09-48ec-a776-2eae86948a1f service=registry 
+$ du -sh /var/lib/registry (après GC)
+320.1M	/var/lib/registry
+$ docker pull de shopapi:1.4.2 toujours OK ?
+localhost:5005/shopapi:1.4.2

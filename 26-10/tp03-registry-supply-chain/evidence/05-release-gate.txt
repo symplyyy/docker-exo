@@ -1,0 +1,25 @@
+$ ./starter/release-gate.sh shopapi:legacy
+== release gate : shopapi:legacy
+  [OK]   label version = 22.04
+  [FAIL] label org.opencontainers.image.revision absent
+  [FAIL] label org.opencontainers.image.source absent
+  [FAIL] utilisateur root
+  [FAIL] pas de HEALTHCHECK
+  [OK]   aucune CVE HIGH/CRITICAL corrigeable
+  [FAIL] secret(s) : /app/.env
+== REFUSÉ
+exit=1
+
+$ ./starter/release-gate.sh shopapi:1.4.2 --push registry.local:5000/shopapi:1.4.2
+== release gate : shopapi:1.4.2
+  [OK]   label version = 1.4.2
+  [OK]   label revision = 77bed97
+  [OK]   label source = https://gitlab.shop-sas.internal/platform/shopapi
+  [OK]   utilisateur node
+  [OK]   healthcheck ["CMD","wget","-q","-O","/dev/null","http://127.0.0.1:3000/health"]
+  [OK]   aucune CVE HIGH/CRITICAL corrigeable
+  [OK]   aucun secret détecté
+== ACCEPTÉ
+push : registry.local:5000/shopapi:1.4.2@sha256:0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f
+signé + SBOM attesté
+exit=0

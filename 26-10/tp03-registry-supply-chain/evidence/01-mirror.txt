@@ -1,0 +1,17 @@
+$ docker pull localhost:5001/library/alpine:3.20   (1er pull : le mirror va chercher sur Docker Hub)
+localhost:5001/library/alpine:3.20
+   3.81s
+$ logs du mirror
+mirror-1  | time="2026-10-26T08:51:58.009743759Z" level=info msg="response completed" go.version=go1.20.8 http.request.host="localhost:5001" http.request.id=f2b56f77-fa68-4260-9214-1b1f19abea70 http.request.method=GET ht
+mirror-1  | 172.26.0.1 - - [26/Oct/2026:08:51:57 +0000] "GET /v2/library/alpine/blobs/sha256:ab3fe4defd29ba6231229a4d41440ac8bde8218e85870e53876277faa24b35c4 HTTP/1.1" 200 628 "" "docker/29.0.1 go/go1.25.4 git-commit/198
+mirror-1  | time="2026-10-26T08:51:58.862159009Z" level=info msg="response completed" go.version=go1.20.8 http.request.host="localhost:5001" http.request.id=db1925fe-5e98-4094-a392-e435b27b00e5 http.request.method=GET ht
+mirror-1  | 172.26.0.1 - - [26/Oct/2026:08:51:58 +0000] "GET /v2/library/alpine/blobs/sha256:3f26bc2dec0b515f1c2818f6e13a8f1da1f88179a008445d4e587233386bff78 HTTP/1.1" 200 4092319 "" "docker/29.0.1 go/go1.25.4 git-commit
+
+$ docker rmi + 2e pull (servi depuis le volume du mirror)
+   (image locale supprimée)
+localhost:5001/library/alpine:3.20
+   1.67s
+$ curl localhost:5001/v2/_catalog  (contenu du cache)
+{"repositories":["library/alpine"]}
+$ docker compose exec mirror du -sh /var/lib/registry
+4.1M	/var/lib/registry

@@ -1,0 +1,13 @@
+$ crane digest registry.local:5000/shopapi:1.4.2
+sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab
+$ crane tag registry.local:5000/shopapi:1.4.2 1.4   (tag flottant de version mineure, aucun pull)
+2026/10/26 09:05:03 registry.local:5000/shopapi:1.4: digest: sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab size: 856
+$ crane tag registry.local:5000/shopapi:1.4.2 77bed97   (tag de commit)
+2026/10/26 09:05:04 registry.local:5000/shopapi:77bed97: digest: sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab size: 856
+$ crane copy registry.local:5000/shopapi:1.4.2 registry.local:5000/shopapi-prod:1.4.2   (promotion côté serveur)
+2026/10/26 09:05:06 registry.local:5000/shopapi-prod:1.4.2: digest: sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab size: 856
+$ digests
+   shopapi:1.4.2        sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab
+   shopapi:1.4          sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab
+   shopapi:77bed97      sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab
+   shopapi-prod:1.4.2   sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab

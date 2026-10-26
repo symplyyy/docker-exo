@@ -1,0 +1,25 @@
+$ ./retention.sh demo 3 --dry-run
+  garde   1.0.0 (semver)
+  garde   pr-12 (2026-10-26T09:01:53.344409006Z, parmi les 3 plus récents)
+  garde   main-06 (2026-10-26T09:01:53.344409006Z, parmi les 3 plus récents)
+  garde   main-05 (2026-10-26T09:01:51.261381547Z, parmi les 3 plus récents)
+  [dry-run] supprimerait main-04 (fe2ba2a9a379)
+  [dry-run] supprimerait main-03 (362a3ef801fc)
+  [dry-run] supprimerait main-02 (bf04c4cc5cf1)
+  ignore  main-01 : son digest a88fd5809231 est partagé avec un tag conservé
+demo : 8 tags, 3 supprimé(s) (dry-run).
+
+$ ./retention.sh demo 3
+  garde   1.0.0 (semver)
+  garde   pr-12 (2026-10-26T09:01:53.344409006Z, parmi les 3 plus récents)
+  garde   main-06 (2026-10-26T09:01:53.344409006Z, parmi les 3 plus récents)
+  garde   main-05 (2026-10-26T09:01:51.261381547Z, parmi les 3 plus récents)
+  supprimé main-04 (fe2ba2a9a379)
+  supprimé main-03 (362a3ef801fc)
+  supprimé main-02 (bf04c4cc5cf1)
+  ignore  main-01 : son digest a88fd5809231 est partagé avec un tag conservé
+demo : 8 tags, 3 supprimé(s).
+Libérer l'espace : docker compose exec registry registry garbage-collect --delete-untagged /etc/docker/registry/config.yml
+
+$ tags restants
+["1.0.0","main-01","main-05","main-06","pr-12"]

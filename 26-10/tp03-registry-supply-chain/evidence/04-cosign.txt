@@ -1,0 +1,30 @@
+Public key written to cosign.pub
+Pushing signature to: registry.local:5000/shopapi
+{"identity":{"docker-reference":"registry.local:5000/shopapi"},"image":{"docker-manifest-digest":"sha256:6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab"},"type":"cosign container image signature"}
+Using payload from: sbom.json
+sha256-6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab.att
+sha256-6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab.sig
+77bed97
+1.4.2
+1.4
+nouveau digest 1.4.2 : sha256:0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f
+$ cosign verify (ancienne signature, nouveau digest)
+error during command execution: no signatures found
+$ cosign verify après re-signature
+sha256:0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f
+$ crane ls
+sha256-6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab.att
+sha256-0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f.sig
+sha256-6014ea78db23c8765e569a4b0a30a1b68c6cdf3f39b0ae1c33e45b03e7f8daab.sig
+77bed97
+1.4.2
+1.4
+sha256-0bb45158299bb0776abe24c0cf8408281a9fee937f5e4d0b8458aac4cfe3e54f.att
+
+$ trivy image --scanners secret shopapi:legacy
+│                                      Target                                      │   Type   │ Secrets │
+│ /app/.env                                                                        │   text   │    1    │
+/app/.env (secrets)
+Total: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 1)
+CRITICAL: AWS (aws-access-key-id)
+AWS Access Key ID
