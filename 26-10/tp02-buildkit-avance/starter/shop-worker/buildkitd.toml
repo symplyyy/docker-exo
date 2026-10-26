@@ -1,0 +1,6 @@
+[registry."localhost:5005"]
+  ca = ["/Users/timeo/Documents/Ynov/docker/docker-exo/26-10/tp03-registry-supply-chain/starter/registry/certs/ca.crt"]
+  http = false
+[registry."registry.local:5000"]
+  ca = ["/Users/timeo/Documents/Ynov/docker/docker-exo/26-10/tp03-registry-supply-chain/starter/registry/certs/ca.crt"]
+  http = false

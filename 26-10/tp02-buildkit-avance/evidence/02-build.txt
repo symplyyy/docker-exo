@@ -1,0 +1,120 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.59kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#2 DONE 0.9s
+
+#3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+#3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+#4 DONE 0.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 186B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 237B done
+#6 DONE 0.0s
+
+#7 [python 1/1] FROM docker.io/library/python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+#7 resolve docker.io/library/python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704 done
+#7 DONE 0.0s
+
+#8 [runtime 1/4] WORKDIR /app
+#8 DONE 0.0s
+
+#9 [builder 1/4] RUN python -m venv /opt/venv
+#9 DONE 1.6s
+
+#10 [builder 2/4] WORKDIR /app
+#10 DONE 0.0s
+
+#11 [builder 3/4] COPY requirements.txt ./
+#11 DONE 0.0s
+
+#12 [builder 4/4] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=pip-arm64,target=/root/.cache/pip,sharing=locked     pip install -r requirements.txt
+#12 0.485 Looking in indexes: https://svc-ci:****@pypi.org/simple
+#12 0.597 Collecting redis==5.0.8 (from -r requirements.txt (line 1))
+#12 0.648   Downloading redis-5.0.8-py3-none-any.whl.metadata (9.2 kB)
+#12 0.706 Collecting psycopg2-binary==2.9.9 (from -r requirements.txt (line 2))
+#12 0.717   Downloading psycopg2_binary-2.9.9-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.4 kB)
+#12 0.742 Collecting prometheus-client==0.20.0 (from -r requirements.txt (line 3))
+#12 0.761   Downloading prometheus_client-0.20.0-py3-none-any.whl.metadata (1.8 kB)
+#12 0.783 Downloading redis-5.0.8-py3-none-any.whl (255 kB)
+#12 0.841 Downloading psycopg2_binary-2.9.9-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (2.9 MB)
+#12 0.963    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.9/2.9 MB 23.4 MB/s eta 0:00:00
+#12 1.072 Downloading prometheus_client-0.20.0-py3-none-any.whl (54 kB)
+#12 1.096 Installing collected packages: redis, psycopg2-binary, prometheus-client
+#12 1.241 Successfully installed prometheus-client-0.20.0 psycopg2-binary-2.9.9 redis-5.0.8
+#12 DONE 1.3s
+
+#13 [test 1/5] COPY requirements-dev.txt ./
+#13 DONE 0.0s
+
+#14 [runtime 2/4] COPY --from=builder /opt/venv /opt/venv
+#14 DONE 0.1s
+
+#15 [test 2/5] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=pip-arm64,target=/root/.cache/pip,sharing=locked     pip install -r requirements-dev.txt
+#15 ...
+
+#16 [runtime 3/4] COPY worker ./worker
+#16 DONE 0.0s
+
+#15 [test 2/5] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=pip-arm64,target=/root/.cache/pip,sharing=locked     pip install -r requirements-dev.txt
+#15 0.437 Looking in indexes: https://svc-ci:****@pypi.org/simple
+#15 0.437 Requirement already satisfied: redis==5.0.8 in /opt/venv/lib/python3.12/site-packages (from -r /app/requirements.txt (line 1)) (5.0.8)
+#15 0.437 Requirement already satisfied: psycopg2-binary==2.9.9 in /opt/venv/lib/python3.12/site-packages (from -r /app/requirements.txt (line 2)) (2.9.9)
+#15 0.437 Requirement already satisfied: prometheus-client==0.20.0 in /opt/venv/lib/python3.12/site-packages (from -r /app/requirements.txt (line 3)) (0.20.0)
+#15 0.519 Collecting pytest==8.3.2 (from -r requirements-dev.txt (line 2))
+#15 0.566   Downloading pytest-8.3.2-py3-none-any.whl.metadata (7.5 kB)
+#15 0.750 Collecting ruff==0.6.3 (from -r requirements-dev.txt (line 3))
+#15 0.814   Downloading ruff-0.6.3-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (25 kB)
+#15 0.839 Collecting iniconfig (from pytest==8.3.2->-r requirements-dev.txt (line 2))
+#15 0.851   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+#15 0.873 Collecting packaging (from pytest==8.3.2->-r requirements-dev.txt (line 2))
+#15 0.886   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#15 0.907 Collecting pluggy<2,>=1.5 (from pytest==8.3.2->-r requirements-dev.txt (line 2))
+#15 0.924   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+#15 0.943 Downloading pytest-8.3.2-py3-none-any.whl (341 kB)
+#15 1.000 Downloading ruff-0.6.3-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (10.1 MB)
+#15 1.415    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 23.9 MB/s eta 0:00:00
+#15 1.431 Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+#15 1.447 Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+#15 1.462 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#15 1.486 Installing collected packages: ruff, pluggy, packaging, iniconfig, pytest
+#15 1.710 Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pytest-8.3.2 ruff-0.6.3
+#15 DONE 1.8s
+
+#17 [test 3/5] COPY worker ./worker
+#17 DONE 0.0s
+
+#18 [test 4/5] COPY tests ./tests
+#18 DONE 0.0s
+
+#19 [test 5/5] RUN ruff check worker tests  && python -m pytest -q -p no:cacheprovider  && touch /tmp/tests-passed
+#19 0.139 All checks passed!
+#19 0.411 ..                                                                       [100%]
+#19 0.412 2 passed in 0.04s
+#19 DONE 0.4s
+
+#20 [runtime 4/4] COPY --from=test /tmp/tests-passed /tmp/tests-passed
+#20 DONE 0.0s
+
+#21 exporting to image
+#21 exporting layers
+#21 exporting layers 0.5s done
+#21 exporting manifest sha256:7d3acdfa022ef788318fb8dd8cad8d993cfe6ed054d308f3932cc74c5805127a done
+#21 exporting config sha256:6a873510da5c52a350558111ff0a7b23363b66c2e1630291e0ea17670a31a19b done
+#21 exporting attestation manifest sha256:eb81395ad2f7bf3d17e8234be4fcea390ec352efa335ed205daa7b6f46806af8 done
+#21 exporting manifest list sha256:22214bae4cb0ecf6f6da6fed64ab9ff94d523e54dbf0f55a609a998920de58c7 done
+#21 naming to docker.io/library/worker:1.0 done
+#21 unpacking to docker.io/library/worker:1.0 0.1s done
+#21 DONE 0.6s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lpt5kvrdbido537y72fo5ax65

@@ -1,0 +1,11 @@
+=== mode=max ===
+runner A : build à froid + --cache-to (export)                19.8s (exit 0) 0 étapes CACHED
+runner B (builder neuf) : --cache-from seul                     4.0s (exit 0) 26 étapes CACHED
+runner C (builder neuf), sans cache distant                    15.6s (exit 0) 0 étapes CACHED
+=== mode=min ===
+runner A : build à froid + --cache-to (export)                16.5s (exit 0) 0 étapes CACHED
+runner B (builder neuf) : --cache-from seul                     4.0s (exit 0) 26 étapes CACHED
+runner C (builder neuf), sans cache distant                    16.7s (exit 0) 0 étapes CACHED
+=== après modification de worker/main.py, builder neuf ===
+--cache-from mode=max                       6.6s
+--cache-from mode=min                      24.5s

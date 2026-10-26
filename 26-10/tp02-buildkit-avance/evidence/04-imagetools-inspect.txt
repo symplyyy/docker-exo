@@ -1,0 +1,26 @@
+Name:      registry.local:5000/shop-worker:1.0
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:7cf4160a0b66f6a8a628f752f84bd30f5ad3016527f631d0243bac5e0795350b
+           
+Manifests: 
+  Name:        registry.local:5000/shop-worker:1.0@sha256:5719156f075a70ee658c839ed4acaa79dfaf76949e173b6193291282b78b8ff7
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+               
+  Name:        registry.local:5000/shop-worker:1.0@sha256:982364b60c770d96cfa0a6715db833beafd53272d8da63a1f5c99bb315de0269
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64
+               
+  Name:        registry.local:5000/shop-worker:1.0@sha256:1ea77e8e9f9df57b7c67e799c8fe8d9480a82cd6a65bfab41e77782698d6a67b
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:5719156f075a70ee658c839ed4acaa79dfaf76949e173b6193291282b78b8ff7
+    vnd.docker.reference.type:   attestation-manifest
+               
+  Name:        registry.local:5000/shop-worker:1.0@sha256:30bf46a849134e04a38c907ab532a64f59a2e163c29d3e1b1753283126d9b17c
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:982364b60c770d96cfa0a6715db833beafd53272d8da63a1f5c99bb315de0269
+    vnd.docker.reference.type:   attestation-manifest

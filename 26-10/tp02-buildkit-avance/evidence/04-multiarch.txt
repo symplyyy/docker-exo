@@ -1,0 +1,59 @@
+Hôte : arm64 (Apple Silicon) — builder shop (docker-container, BuildKit v0.33.1)
+linux/arm64 seul (natif), builder vide                    10.9s (exit 0)
+linux/amd64 seul (émulé QEMU), builder vide             10.5s (exit 0)
+      tests amd64 : #20 [runtime 4/4] COPY --from=test /tmp/tests-passed /tmp/tests-passed
+amd64 + arm64 -> OCI tar (couches purgées, cache mounts gardés)   15.3s (exit 0)
+      cache mount id "/pip-arm64"
+      cache mount id "/pip-amd64"
+sans --push ni -o (2 plateformes, pas d'export)            0.6s (exit 0)
+      WARNING: No output specified with docker-container driver. Build result will only remain in the build cache. To push result image into registry use --push or to load image into docker use --load
+--load avec 2 plateformes                                  1.7s (exit 0)
+      
+      View build details: docker-desktop://dashboard/build/shop/shop0/iujf329mo3al9tngyfzp56cns
+$ index interne (manifest list) :
+{
+  "platform": {
+    "architecture": "amd64",
+    "os": "linux"
+  },
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:9f09b52334f8",
+  "size": 1811,
+  "annotations": null
+}
+{
+  "platform": {
+    "architecture": "arm64",
+    "os": "linux"
+  },
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:45a893c5f0be",
+  "size": 1811,
+  "annotations": null
+}
+{
+  "platform": {
+    "architecture": "unknown",
+    "os": "unknown"
+  },
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:5fade737353d",
+  "size": 837,
+  "annotations": {
+    "vnd.docker.reference.digest": "sha256:9f09b52334f817201d68bb0435f7656900e93d06f6702f07c8e075989324d835",
+    "vnd.docker.reference.type": "attestation-manifest"
+  }
+}
+{
+  "platform": {
+    "architecture": "unknown",
+    "os": "unknown"
+  },
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "digest": "sha256:788d5e93ffd6",
+  "size": 837,
+  "annotations": {
+    "vnd.docker.reference.digest": "sha256:45a893c5f0be0eba2675224829efe9fbbff9e459e8aec0ace5e19c23f12b131d",
+    "vnd.docker.reference.type": "attestation-manifest"
+  }
+}

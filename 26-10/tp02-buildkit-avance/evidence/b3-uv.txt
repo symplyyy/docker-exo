@@ -1,0 +1,4 @@
+pip : cache mount vide                 total  10.1s | install prod   1.2s | install dev   1.8s (exit 0)
+pip : couches purgées, cache mount plein total   8.8s | install prod   0.8s | install dev   1.1s (exit 0)
+uv : cache mount vide                  total   6.9s | install prod   0.4s | install dev   0.9s (exit 0)
+uv : couches purgées, cache mount plein total   6.0s | install prod   0.1s | install dev   0.1s (exit 0)

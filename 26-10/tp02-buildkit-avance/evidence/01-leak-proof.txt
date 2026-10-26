@@ -1,0 +1,22 @@
+## 1) docker history --no-trunc worker:leak | grep -i secret
+    RUN |1 PIP_INDEX_URL=https://svc-ci:Tr3sS3cret@pypi.org/simple /bin/sh -c pip install 
+ago    ARG PIP_INDEX_URL=https://svc-ci:Tr3sS3cret@pypi.org/simple                        
+
+## 2) docker inspect worker:leak (provenance / config)
+(absent de la config de l'image)
+
+## 3) buildx history (enregistrement du build, contient les build-args)
+PIP_INDEX_URL	https://svc-ci:Tr3sS3cret@pypi.org/simple
+
+## 4) fichiers dans les couches : pip a-t-il écrit l URL ?
+/app/pip.conf.example
+Dockerfile
+Dockerfile.legacy
+pip.conf.example
+requirements-dev.txt
+requirements.txt
+tests
+worker
+
+## 5) env du conteneur
+(ARG non persisté dans ENV)

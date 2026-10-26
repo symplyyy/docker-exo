@@ -1,0 +1,115 @@
+$ docker buildx bake --print worker-test
+{
+  "group": {
+    "default": {
+      "targets": [
+        "worker-test"
+      ]
+    }
+  },
+  "target": {
+    "worker-test": {
+      "attest": [
+        {
+          "disabled": true,
+          "type": "provenance"
+        },
+        {
+          "disabled": true,
+          "type": "sbom"
+        }
+      ],
+      "context": "shop-worker",
+      "dockerfile": "Dockerfile",
+      "args": {
+        "GIT_SHA": "77bed97",
+        "VERSION": "1.0"
+      },
+      "labels": {
+        "org.opencontainers.image.created": "2026-10-26T08:56:40Z",
+        "org.opencontainers.image.revision": "77bed97",
+        "org.opencontainers.image.vendor": "Shop SAS",
+        "org.opencontainers.image.version": "1.0"
+      },
+      "cache-from": [
+        {
+          "ref": "localhost:5005/cache:shop-worker",
+          "type": "registry"
+        }
+      ],
+      "target": "test",
+      "secret": [
+        {
+          "id": "pipconf",
+          "src": "shop-worker/pip.conf"
+        }
+      ],
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "output": [
+        {
+          "type": "cacheonly"
+        }
+      ]
+    }
+  }
+}
+
+$ docker buildx bake --print   (groupe default, champs principaux)
+{
+  "group": {
+    "default": {
+      "targets": [
+        "api",
+        "worker"
+      ]
+    }
+  },
+  "target": {
+    "api": {
+      "context": "../../tp01-optimisation-image/starter/shopapi",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "tags": [
+        "localhost:5005/shopapi:1.0",
+        "localhost:5005/shopapi:77bed97"
+      ],
+      "cache-to": [
+        {
+          "mode": "max",
+          "ref": "localhost:5005/cache:shopapi",
+          "type": "registry"
+        }
+      ],
+      "secret": null
+    },
+    "worker": {
+      "context": "shop-worker",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "tags": [
+        "localhost:5005/shop-worker:1.0",
+        "localhost:5005/shop-worker:77bed97"
+      ],
+      "cache-to": [
+        {
+          "mode": "max",
+          "ref": "localhost:5005/cache:shop-worker",
+          "type": "registry"
+        }
+      ],
+      "secret": [
+        {
+          "id": "pipconf",
+          "src": "shop-worker/pip.conf"
+        }
+      ]
+    }
+  }
+}

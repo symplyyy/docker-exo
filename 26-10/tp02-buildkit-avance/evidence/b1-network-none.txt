@@ -1,0 +1,19 @@
+### 1) build EN LIGNE : remplit le wheelhouse (cache mount wheels-arm64)
+   Successfully installed prometheus-client-0.20.0 psycopg2-binary-2.9.9 redis-5.0.8
+   Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pytest-8.3.2 ruff-0.6.3
+   2 passed in 0.05s
+   (prune des couches)
+### 2) build --network=none : uniquement depuis le wheelhouse
+#12 [builder 4/4] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=wheels-arm64,target=/wheels,sharing=locked     (PIP_RETRIES=0 pip download -q -d /wheels -r requirements.txt || echo "hors ligne : wheelhouse seul")  && pip install --no-index --find-links /wheels -r requirements.txt
+   ERROR: Could not find a version that satisfies the requirement redis==5.0.8 (from versions: none)
+   ERROR: No matching distribution found for redis==5.0.8
+   hors ligne : wheelhouse seul
+   Successfully installed prometheus-client-0.20.0 psycopg2-binary-2.9.9 redis-5.0.8
+#15 [test 2/5] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=wheels-arm64,target=/wheels,sharing=locked     (PIP_RETRIES=0 pip download -q -d /wheels -r requirements-dev.txt || echo "hors ligne : wheelhouse seul")  && pip install --no-index --find-links /wheels -r requirements-dev.txt
+#15 [test 2/5] RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true     --mount=type=cache,id=wheels-arm64,target=/wheels,sharing=locked     (PIP_RETRIES=0 pip download -q -d /wheels -r requirements-dev.txt || echo "hors ligne : wheelhouse seul")  && pip install --no-index --find-links /wheels -r requirements-dev.txt
+   ERROR: Could not find a version that satisfies the requirement redis==5.0.8 (from versions: none)
+   ERROR: No matching distribution found for redis==5.0.8
+   hors ligne : wheelhouse seul
+   Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pytest-8.3.2 ruff-0.6.3
+   2 passed in 0.05s
+   -> build réussi sans aucun accès réseau (tests passés)

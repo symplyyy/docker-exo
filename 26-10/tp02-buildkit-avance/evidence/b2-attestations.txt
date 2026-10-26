@@ -1,0 +1,34 @@
+$ curl /v2/_catalog
+{"repositories":["cache","shop-worker","shopapi"]}
+
+
+$ imagetools inspect registry.local:5000/shop-worker:1.0 --format '{{json .Provenance}}' (extrait)
+{
+  "buildType": null,
+  "builder": "",
+  "invocation": {
+    "build-arg:GIT_SHA": "77bed97",
+    "build-arg:VERSION": "1.0",
+    "cmdline": "docker/dockerfile:1.7",
+    "label:org.opencontainers.image.created": "2026-10-26T08:57:27Z",
+    "label:org.opencontainers.image.revision": "77bed97",
+    "label:org.opencontainers.image.vendor": "Shop SAS",
+    "label:org.opencontainers.image.version": "1.0",
+    "source": "docker/dockerfile:1.7"
+  },
+  "secrets": null,
+  "materials": [
+    "pkg:docker/docker/buildkit-syft-scanner@stable-1",
+    "pkg:docker/docker/dockerfile@1.7",
+    "pkg:docker/python@3.12.15-slim-trixie?digest=sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704&platform=linux%2Farm64"
+  ]
+}
+
+$ imagetools inspect ... --format '{{json .SBOM}}' | nombre de paquets par arch
+{
+  "linux/amd64": 106,
+  "linux/arm64": 106
+}
+
+$ le secret apparaît-il dans la provenance mode=max ?
+0

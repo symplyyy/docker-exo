@@ -1,0 +1,14 @@
+=== Avec cache mount (Dockerfile final) ===
+1. build à froid (builder vide)                             11.5s (exit 0)
+2. rebuild identique (cache de couches)                       0.5s (exit 0)
+   -> docker buildx prune --filter type=regular : couches supprimées, cache mount conservé :
+      Description:  cached mount /root/.cache/pip from exec /bin/sh -c pip install -r requirements.txt with id "/pip-arm64" | Size:         34.3MB
+3. après prune + ajout de requests (cache mount seul)        8.3s (exit 0)
+      pip : 16 paquets depuis le cache mount, 10 téléchargés
+4. --no-cache (couches ignorées, cache mount gardé)         5.9s (exit 0)
+      pip : 0 depuis le cache mount, 26 téléchargés
+
+=== Sans cache mount (variante de comparaison) ===
+5. builder vide + requests                                   10.9s (exit 0)
+6. après prune des couches (rien à réutiliser)            11.3s (exit 0)
+      pip : 0 depuis un cache, 26 téléchargés
