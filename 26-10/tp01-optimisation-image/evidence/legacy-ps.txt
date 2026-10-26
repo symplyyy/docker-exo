@@ -1,0 +1,6 @@
+  PID COMMAND
+    1 /bin/sh -c npm start
+    7 npm start
+   18 sh -c node src/server.js
+   19 node src/server.js
+   30 ps -o pid,args

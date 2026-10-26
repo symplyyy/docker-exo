@@ -1,0 +1,13 @@
+total 140
+drwxr-xr-x   1 root root  4096 Oct 26 08:13 .
+drwxr-xr-x   1 root root  4096 Oct 26 08:13 ..
+-rw-r--r--   1 root root   179 Oct 26 08:09 .env
+-rw-r--r--   1 root root    20 Oct 26 08:09 .gitignore
+-rw-r--r--   1 root root   505 Oct 26 08:09 Dockerfile
+-rw-r--r--   1 root root   505 Oct 26 08:12 Dockerfile.legacy
+-rw-r--r--   1 root root    47 Oct 26 08:09 dump-prod-2024.sql
+drwxr-xr-x 199 root root  4096 Oct 26 08:13 node_modules
+-rw-r--r--   1 root root 96529 Oct 26 08:13 package-lock.json
+-rw-r--r--   1 root root   545 Oct 26 08:09 package.json
+drwxr-xr-x   2 root root  4096 Oct 26 08:10 src
+drwxr-xr-x   2 root root  4096 Oct 26 08:10 test

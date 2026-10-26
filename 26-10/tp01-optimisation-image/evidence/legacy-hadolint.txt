@@ -1,0 +1,18 @@
+Unable to find image 'hadolint/hadolint:v2.12.0' locally
+v2.12.0: Pulling from hadolint/hadolint
+1c5dbb1c62fe: Pulling fs layer
+1c5dbb1c62fe: Download complete
+1c5dbb1c62fe: Pull complete
+Digest: sha256:30a8fd2e785ab6176eed53f74769e04f125afb2f74a6c52aef7d463583b6d45e
+Status: Downloaded newer image for hadolint/hadolint:v2.12.0
+-:4 DL3009 [92minfo[0m: Delete the apt-get lists after installing something
+-:5 DL3008 [1m[93mwarning[0m: Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+-:5 DL3015 [92minfo[0m: Avoid additional packages by specifying `--no-install-recommends`
+-:5 DL3059 [92minfo[0m: Multiple consecutive `RUN` instructions. Consider consolidation.
+-:6 DL4006 [1m[93mwarning[0m: Set the SHELL option -o pipefail before RUN with a pipe in it. If you are using /bin/sh in an alpine image or if your shell is symlinked to busybox then consider explicitly setting your SHELL to /bin/ash, or disable this check
+-:7 DL3008 [1m[93mwarning[0m: Pin versions in apt get install. Instead of `apt-get install <package>` use `apt-get install <package>=<version>`
+-:7 DL3015 [92minfo[0m: Avoid additional packages by specifying `--no-install-recommends`
+-:8 DL3059 [92minfo[0m: Multiple consecutive `RUN` instructions. Consider consolidation.
+-:8 DL3016 [1m[93mwarning[0m: Pin versions in npm. Instead of `npm install <package>` use `npm install <package>@<version>`
+-:15 DL3025 [1m[93mwarning[0m: Use arguments JSON notation for CMD and ENTRYPOINT arguments
+exit=1

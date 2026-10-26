@@ -1,0 +1,13 @@
+32M	/app/node_modules
+eslint
+nodemon
+/usr/bin/gcc
+/usr/bin/git
+/usr/bin/vim
+/usr/bin/wget
+/usr/bin/curl
+/usr/bin/python3
+  PID COMMAND
+    1 sh
+   11 ps
+34M	/root/.npm

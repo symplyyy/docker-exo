@@ -1,0 +1,7 @@
+1. --no-cache, Dockerfile avec cache mount (froid)        8.9s (exit 0)
+2. --no-cache, Dockerfile avec cache mount (2e fois)      2.7s (exit 0)
+3. --no-cache, Dockerfile sans cache mount                2.4s (exit 0)
+4. build normal avec cache mount (cache chaud)            0.6s (exit 0)
+5. build normal sans cache mount (cache chaud)            0.5s (exit 0)
+6. package.json modifié, avec cache mount                1.5s (exit 0)
+7. package.json modifié, sans cache mount                2.6s (exit 0)

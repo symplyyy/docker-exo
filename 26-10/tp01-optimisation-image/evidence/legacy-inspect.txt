@@ -1,0 +1,1 @@
+Labels={"org.opencontainers.image.version":"22.04"} Healthcheck=null Cmd=["/bin/sh","-c","npm start"] User=""

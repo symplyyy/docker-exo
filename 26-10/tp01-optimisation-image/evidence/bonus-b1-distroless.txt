@@ -1,0 +1,10 @@
+shopapi:1.4.2-distroless 199MB
+shopapi:1.4.2 177MB
+User=65532 Entrypoint=["/nodejs/bin/node"] Cmd=["src/server.js"]
+Run 'docker run --help' for more information
+health=healthy
+{"service":"shopapi","version":"1.4.2"}
+OCI runtime exec failed: exec failed: unable to start container process: exec: "sh": executable file not found in $PATH
+stop 0.22s
+shopapi:1.4.2-distroless (debian 12.13): 7 CVE HIGH/CRITICAL
+Node.js: 0 CVE HIGH/CRITICAL

@@ -1,0 +1,7 @@
+$ docker stop -t 10 api-legacy
+api-legacy
+docker stop -t 10 api-legacy  0.02s user 0.01s system 0% cpu 10.147 total
+ExitCode=137
+--- logs (aucune trace "arrêt demandé")
+
+{"level":30,"time":1793002458604,"pid":18,"hostname":"97aa9ccccacd","port":3000,"msg":"shopapi démarré"}

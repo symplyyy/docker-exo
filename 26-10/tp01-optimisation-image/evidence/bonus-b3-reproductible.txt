@@ -1,0 +1,9 @@
+### sans SOURCE_DATE_EPOCH
+build 1 : sha256:acfdf4e6e6dbee5a19d5a0caacd945163c29c4ff1178521a9acc0b3228bad9bf
+build 2 : sha256:7b9982ba90fef5aa57f7031afe20326a9187ebfadf75efc6eef22be5f84c1395
+### SOURCE_DATE_EPOCH=1791555360 + rewrite-timestamp=true, provenance activée (défaut)
+build 1 : sha256:e36ab76d40fbba3a240a1d5d34bb205960df1719679c042d6d3ec64f74d3edf5
+build 2 : sha256:e36ab76d40fbba3a240a1d5d34bb205960df1719679c042d6d3ec64f74d3edf5
+### SOURCE_DATE_EPOCH + rewrite-timestamp=true + --provenance=false
+build 1 : sha256:e36ab76d40fbba3a240a1d5d34bb205960df1719679c042d6d3ec64f74d3edf5
+build 2 : sha256:e36ab76d40fbba3a240a1d5d34bb205960df1719679c042d6d3ec64f74d3edf5

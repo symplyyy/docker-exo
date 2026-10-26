@@ -1,0 +1,18 @@
+0B	CMD ["/bin/sh" "-c" "npm start"]
+0B	EXPOSE [3000/tcp]
+0B	ENV DATABASE_URL=postgres://shop:S3cret!@db.internal:5432/shop
+0B	ENV NODE_ENV=development
+63.5MB	RUN /bin/sh -c npm install # buildkit
+53.2kB	COPY . /app # buildkit
+8.19kB	WORKDIR /app
+7.54MB	RUN /bin/sh -c npm install -g nodemon # buildkit
+173MB	RUN /bin/sh -c apt-get install -y nodejs # buildkit
+999kB	RUN /bin/sh -c curl -fsSL https://deb.nodesource.com/setup_20.x | bash - # buildkit
+379MB	RUN /bin/sh -c apt-get install -y curl wget vim git build-essential python3 # buildkit
+80.7MB	RUN /bin/sh -c apt-get update # buildkit
+0B	ENV DEBIAN_FRONTEND=noninteractive
+0B	/bin/sh -c #(nop)  CMD ["/bin/bash"]
+79.5MB	/bin/sh -c #(nop) ADD file:1e8b3941ec802b3e9a687b06bf141aa99b460bda277875ad29712897c6622f25 in / 
+0B	/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04
+0B	/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH
+0B	/bin/sh -c #(nop)  ARG RELEASE
