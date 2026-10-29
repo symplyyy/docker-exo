@@ -1,0 +1,26 @@
+$ docker inspect $(docker compose ps -q db) --format {{json .Mounts}} | jq
+{"Type":"volume","Name":"shop_pgdata","Source":"/var/lib/docker/volumes/shop_pgdata/_data","Destination":"/var/lib/postgresql/data","RW":true}
+{"Type":"bind","Name":null,"Source":"/host_mnt/Users/timeo/Documents/Ynov/docker/docker-exo/29-10/tp04-compose-entreprise/solution/db/init.sql","Destination":"/docker-entrypoint-initdb.d/init.sql","RW":false}
+{"Type":"bind","Name":null,"Source":"/Users/timeo/Documents/Ynov/docker/docker-exo/29-10/tp04-compose-entreprise/solution/secrets/db_password.txt","Destination":"/run/secrets/db_password","RW":false}
+
+$ docker volume inspect shop_pgdata
+{"Name":"shop_pgdata","Driver":"local","Mountpoint":"/var/lib/docker/volumes/shop_pgdata/_data","Labels":{"com.docker.compose.config-hash":"2e6965aae4be884527a3afdfd8a79c1df6e053b87c8af8d38f5a222324c8c722","com.docker.compose.project":"shop","com.docker.compose.version":"2.40.3","com.docker.compose.volume":"pgdata"}}
+
+$ docker system df -v (volumes shop)
+VOLUME NAME                                                                                LINKS     SIZE
+shop_redisdata                                                                             1         1.52kB
+shop_pgdata                                                                                1         48.23MB
+
+$ docker exec db touch /tmp/x && docker diff
+C /run
+C /run/postgresql
+A /run/postgresql/.s.PGSQL.5432
+A /run/postgresql/.s.PGSQL.5432.lock
+A /run/secrets
+A /run/secrets/db_password
+C /tmp
+A /tmp/x
+C /docker-entrypoint-initdb.d
+A /docker-entrypoint-initdb.d/init.sql
+$ fichier dans le volume : touch /var/lib/postgresql/data/y puis docker diff
+   lignes postgresql/data dans docker diff : 0

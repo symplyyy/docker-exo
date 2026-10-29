@@ -1,0 +1,17 @@
+$ docker compose down
+   voltest_pgdata : présent
+$ docker compose stop && docker compose rm -f
+   voltest_pgdata : présent
+$ docker volume prune -f (volume nommé, plus utilisé)
+Total reclaimed space: 0B
+   voltest_pgdata : présent
+$ docker volume prune -a -f (aussi les volumes nommés)
+Total reclaimed space: 39.98MB
+   voltest_pgdata : SUPPRIMÉ
+$ docker compose down -v
+   voltest_pgdata : SUPPRIMÉ
+
+### volume anonyme
+$ docker inspect anon .Mounts -> volume anonyme 45d86007f7e630023d02dd0336f06c90feaa0ff7966b226ea82eb2f0db4e01eb
+$ docker rm -f anon -> volume toujours là (orphelin)
+$ docker rm -fv anon2 -> volume supprimé

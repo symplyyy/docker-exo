@@ -1,0 +1,35 @@
+$ docker compose up -d --wait
+ Container shopdata-db-1  Healthy
+$ ./seed.sh
+--------+----------------------------------
+ 100000 | e1bd868f1ce4ab49e8314e139b5d6a0c
+(1 row)
+
+$ ./checksum.sh (avant)
+100000 e1bd868f1ce4ab49e8314e139b5d6a0c
+$ RAW=1 ./backup.sh
+dump logique : /Users/timeo/Documents/Ynov/docker/docker-exo/29-10/tp05-donnees-persistance/solution/backups/shop-20261029-144513.dump (1.5M)
+ Container shopdata-db-1  Stopping
+ Container shopdata-db-1  Stopped
+Unable to find image 'alpine:3.20' locally
+3.20: Pulling from library/alpine
+Digest: sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+Status: Downloaded newer image for alpine:3.20
+ Container shopdata-db-1  Starting
+ Container shopdata-db-1  Started
+sauvegarde brute : /Users/timeo/Documents/Ynov/docker/docker-exo/29-10/tp05-donnees-persistance/solution/backups/shopdata_pgdata-20261029-144513.tar.gz ( 13M)
+1 dump(s) gardé(s)
+$ docker compose down -v
+ Volume shopdata_pgdata  Removing
+ Volume shopdata_pgdata  Removed
+$ docker compose up -d --wait  (base vide)
+ Container shopdata-db-1  Healthy
+   tables orders : 0
+$ ./restore.sh backups/shop-20261029-144513.dump
+ Container shopdata-db-1  Running
+ Container shopdata-db-1  Waiting
+ Container shopdata-db-1  Healthy
+restauré : backups/shop-20261029-144513.dump
+$ ./checksum.sh (après)
+100000 e1bd868f1ce4ab49e8314e139b5d6a0c
+=> checksums identiques

@@ -1,0 +1,17 @@
+$ docker compose -f compose.backup.yml up -d   (SCHEDULE "@every 1m")
+$ docker compose -f compose.backup.yml logs backup
+backup-1  | 2026/10/29 13:51:55 21: Creating dump of shop database from db...
+backup-1  | 2026/10/29 13:51:55 21: SQL backup created successfully
+$ ls -l backups-tp04/daily backups-tp04/last
+    backups-tp04/daily:
+   1266 shop-20261029.sql.gz
+   20 shop-20261029.sql.gz
+    
+    backups-tp04/last:
+   1263 shop-20261029-134644.sql.gz
+   1264 shop-20261029-134744.sql.gz
+   1263 shop-20261029-134844.sql.gz
+   1262 shop-20261029-134944.sql.gz
+   1266 shop-20261029-135044.sql.gz
+   1266 shop-20261029-135155.sql.gz
+   27 shop-20261029-135155.sql.gz

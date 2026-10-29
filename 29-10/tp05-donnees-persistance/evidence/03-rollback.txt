@@ -1,0 +1,4 @@
+$ retour arrière : docker compose -f compose.yml up -d --force-recreate db
+ Container shopdata-db-1  Healthy
+14.13
+100000 e1bd868f1ce4ab49e8314e139b5d6a0c

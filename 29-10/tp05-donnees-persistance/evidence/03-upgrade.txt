@@ -1,0 +1,14 @@
+== 1. checksum PG14
+14.13
+100000 e1bd868f1ce4ab49e8314e139b5d6a0c
+== 2. dumps
+4.9M backups/all-20261029-145241.sql
+1.5M backups/shop-20261029-145241.dump
+== 3. arrêt PG14 (volume pgdata conservé)
+== 4. PG16 sur le volume pgdata16
+16.4
+== 5. restauration
+indisponibilité : 7s
+== 6. checksum PG16
+100000 e1bd868f1ce4ab49e8314e139b5d6a0c
+VERDICT : OK, migration sans perte

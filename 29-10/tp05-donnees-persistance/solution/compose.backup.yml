@@ -1,0 +1,29 @@
+name: shop-backup
+
+services:
+  backup:
+    image: prodrigestivill/postgres-backup-local:16
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      SCHEDULE: "@every 1m"
+      BACKUP_KEEP_DAYS: 7
+      BACKUP_KEEP_WEEKS: 4
+      BACKUP_KEEP_MONTHS: 6
+    secrets:
+      - db_password
+    volumes:
+      - ./backups-tp04:/backups
+    networks:
+      - shop_back
+    restart: unless-stopped
+
+networks:
+  shop_back:
+    external: true
+
+secrets:
+  db_password:
+    file: ../../tp04-compose-entreprise/solution/secrets/db_password.txt
