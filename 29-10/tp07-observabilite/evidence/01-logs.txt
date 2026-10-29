@@ -1,0 +1,13 @@
+$ docker logs --since 5m --timestamps shop-api-1 | jq (extrait)
+{"level":30,"time":1793282246119,"msg":"request completed","req":"/ready","status":200}
+$ docker inspect shop-api-1 --format {{.HostConfig.LogConfig}}
+{json-file map[max-file:3 max-size:10m]}
+$ docker inspect shop-api-1 --format {{.LogPath}}
+/var/lib/docker/containers/deaf50529cfeda133d1ce4af392c0c0b2907b11778fc5c075e645e44ed364ea8/deaf50529cfeda133d1ce4af392c0c0b2907b11778fc5c075e645e44ed364ea8-json.log
+$ ls dans la VM Docker Desktop (pas de sudo ls possible depuis le Mac)
+-rw-------    1 root     root          6379 Oct 29 13:57 config.v2.json
+-rw-r-----    1 root     root          1508 Oct 29 13:57 deaf50529cfeda133d1ce4af392c0c0b2907b11778fc5c075e645e44ed364ea8-json.log
+-rw-------    1 root     root          1834 Oct 29 13:57 hostconfig.json
+$ docker run --rm --log-driver none alpine echo "pas loggé"
+pas loggé
+Error response from daemon: configured logging driver does not support reading

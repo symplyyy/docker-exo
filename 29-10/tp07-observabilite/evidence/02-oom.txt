@@ -1,0 +1,35 @@
+$ docker update --memory 64m --memory-swap 64m shop-api-1
+Memory=67108864
+$ docker stats --no-stream (avant)
+NAME                                      CPU %     MEM USAGE / LIMIT     MEM %
+shop-api-1                                0.73%     19.31MiB / 64MiB      30.18%
+shop-worker-1                             0.02%     23.53MiB / 128MiB     18.38%
+shop-api-2                                0.18%     17.8MiB / 256MiB      6.95%
+shop-db-1                                 0.01%     23.14MiB / 512MiB     4.52%
+shop-redis-1                              0.23%     9.582MiB / 128MiB     7.49%
+shop-traefik-1                            0.21%     22.28MiB / 128MiB     17.40%
+shop-registry-gateway-1                   0.00%     22.62MiB / 7.653GiB   0.29%
+shop-registry-registry-1                  0.00%     25.86MiB / 7.653GiB   0.33%
+shop-registry-mirror-1                    0.00%     22.73MiB / 7.653GiB   0.29%
+$ ./load.sh 3000
+3000 requêtes envoyées
+$ docker stats --no-stream (après)
+NAME                                      CPU %     MEM USAGE / LIMIT     MEM %
+shop-api-1                                0.28%     30.95MiB / 64MiB      48.35%
+shop-api-2                                0.32%     29.32MiB / 256MiB     11.45%
+$ docker inspect shop-api-1 --format '{{.State.OOMKilled}} {{.RestartCount}}'
+OOMKilled=false RestartCount=0 (avant: 0)
+$ docker events --filter type=container --since 3m (oom/die/start)
+start shop-api-1 exitCode=<no value>
+start shop-api-2 exitCode=<no value>
+
+### 64 Mo ne suffit pas à déclencher un OOM (l API monte à ~31 Mo), essai à 28 Mo
+$ docker update --memory 28m --memory-swap 28m shop-api-1
+$ ./load.sh 3000
+3000 requêtes envoyées
+$ docker inspect shop-api-1 --format '{{.State.OOMKilled}} {{.RestartCount}}'
+OOMKilled=false RestartCount=1 Status=running
+$ docker events (oom/die/start)
+oom shop-api-1 exitCode=<no value>
+die shop-api-1 exitCode=137
+start shop-api-1 exitCode=<no value>

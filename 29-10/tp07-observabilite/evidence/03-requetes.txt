@@ -1,0 +1,18 @@
+$ docker exec observability-prometheus-1 id
+uid=65534(nobody) gid=65534(nobody) groups=65534(nobody)
+$ ls -ln /var/run/docker.sock (dans la VM)
+srw-rw----    1 0        0                0 Oct 27 13:25 /s
+
+$ {service="api"} | json | level="50"
+{"level":50,"time":1793283355359,"pid":1,"hostname":"51cab7a2b1f8","req":{"id":1,"method":"GET","url":"/products","query":{},"params":{},"headers":{"host":"api.localhost","user-agent":"curl/8.7.1","ac
+{"level":50,"time":1793283355379,"pid":1,"hostname":"deaf50529cfe","req":{"id":2,"method":"GET","url":"/products","query":{},"params":{},"headers":{"host":"api.localhost","user-agent":"curl/8.7.1","ac
+$ {service="worker"} |= "rejected"
+{"ts":"2026-10-29 14:15:19,025","level":"INFO","msg":"commande 1793283319010 -> rejected"}
+$ sum(rate(http_request_duration_seconds_count[5m])) by (status)
+   200	0.03507933333333334
+   503	0.052619000000000006
+$ grafana : dashboards et datasources provisionnés
+{"title":"Shop","uid":"bg2p2hv5299tsd","folderTitle":null}
+{"title":"Shop SAS","uid":"shop","folderTitle":"Shop"}
+{"name":"Loki","type":"loki","url":"http://loki:3100"}
+{"name":"Prometheus","type":"prometheus","url":"http://prometheus:9090"}
