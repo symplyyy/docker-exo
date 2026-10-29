@@ -1,0 +1,15 @@
+$ make test   (prod)
+OK   /ready
+OK   /products en cache (X-Cache)
+OK   POST /orders
+OK   commande traitée par le worker
+exit=0
+
+$ make migrate M=002-add-sku.sql
+MIGRATION=002-add-sku.sql docker compose run --rm migrate
+psql:/migrations/002-add-sku.sql:1: NOTICE:  column "sku" of relation "products" already exists, skipping
+ALTER TABLE
+UPDATE 0
+$ make migrate
+usage: make migrate M=002-add-sku.sql
+make: *** [migrate] Error 1

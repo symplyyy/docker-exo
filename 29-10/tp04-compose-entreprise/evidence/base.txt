@@ -1,0 +1,16 @@
+$ MIGRATION=002-add-sku.sql docker compose run --rm migrate
+ALTER TABLE
+UPDATE 3
+$ docker compose run --rm migrate (sans MIGRATION)
+
+$ docker compose --profile tools up -d --wait adminer
+ Container shop-adminer-1  Healthy
+adminer.localhost -> HTTP 200
+$ isolement : la db n a pas de port publié
+:0
+$ back est internal : pas d internet depuis redis
+wget: bad address 'example.com'
+exit=0
+$ le front ne voit pas la base
+** server can't find db: NXDOMAIN
+

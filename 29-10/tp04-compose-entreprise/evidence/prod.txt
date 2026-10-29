@@ -1,0 +1,21 @@
+$ docker compose -f compose.yml -f compose.prod.yml config | grep (build / ports de debug)
+   lignes trouvées : 1
+$ logs d accès traefik (backend utilisé)
+   3 http://172.28.0.3:3000
+   3 http://172.28.0.4:3000
+$ durcissement
+ReadonlyRootfs=true CapDrop=[ALL] SecurityOpt=[no-new-privileges:true] Memory=268435456 NanoCpus=500000000
+touch: /app/x: Read-only file system
+
+$ docker compose up -d --scale api=3
+ Container shop-api-2  Healthy
+shop-api-1
+shop-api-2
+shop-api-3
+$ docker compose up -d
+ Container shop-api-2  Healthy
+shop-api-1
+shop-api-2
+
+$ REGISTRY= docker compose -f compose.yml -f compose.prod.yml config
+error while interpolating services.worker.image: required variable REGISTRY is missing a value: REGISTRY doit être défini
