@@ -1,0 +1,12 @@
+$ docker exec ctr-a ping -c1 ctr-b   (bridge par défaut)
+ping: bad address 'ctr-b'
+$ docker exec ctr-a ping -c1 ctr-b   (réseau utilisateur demo)
+64 bytes from 192.168.16.3: seq=0 ttl=64 time=0.091 ms
+1 packets transmitted, 1 packets received, 0% packet loss
+$ docker exec ctr-a cat /etc/resolv.conf
+nameserver 127.0.0.11
+options ndots:0
+$ docker run --rm --network container:incident-api-1 nicolaka/netshoot ss -tln
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port
+LISTEN 0      4096      127.0.0.11:37169      0.0.0.0:*   
+LISTEN 0      511                *:3000             *:*   

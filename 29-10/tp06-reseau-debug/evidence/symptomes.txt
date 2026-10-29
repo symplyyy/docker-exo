@@ -1,0 +1,19 @@
+$ docker compose logs api --tail 5
+api-2  |   requireStack: []
+api-2  | }
+api-2  | 
+api-2  | Node.js v20.20.2
+
+$ docker compose logs redis
+redis-1  | 1:M 29 Oct 2026 13:54:01.538 * Running mode=standalone, port=6379.
+redis-1  | 1:M 29 Oct 2026 13:54:01.538 # Warning: Could not create server TCP listening socket *:6379: bind: Address in use
+redis-1  | 1:M 29 Oct 2026 13:54:01.538 # Failed listening on port 6379 (tcp), aborting.
+
+$ docker compose logs db | grep FATAL
+db-1  | 2026-10-29 13:54:11.662 UTC [76] FATAL:  role "postgres" does not exist
+db-1  | 2026-10-29 13:54:16.714 UTC [83] FATAL:  role "postgres" does not exist
+
+$ docker network inspect incident_public --format {{.Internal}}
+true
+$ docker inspect incident-api-1 networks
+incident_public 
