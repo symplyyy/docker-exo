@@ -1,0 +1,31 @@
+services:
+  traefik:
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=shop_front
+      - --entrypoints.web.address=:80
+      - --ping=true
+      - --accesslog=true
+      - --api.insecure=true
+    ports:
+      - "8088:8080"
+
+  api:
+    command:
+      - >-
+        export DATABASE_URL="postgres://shop:$$(cat /run/secrets/db_password)@db:5432/shop" &&
+        exec node --watch src/server.js
+    environment:
+      LOG_LEVEL: debug
+    volumes:
+      - ./apps/shopapi/src:/app/src:ro
+    ports:
+      - "3000:3000"
+
+  db:
+    ports:
+      - "5434:5432"
+    networks:
+      - back
+      - front

@@ -1,0 +1,52 @@
+# syntax=docker/dockerfile:1.7
+
+FROM python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704 AS python
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PATH=/opt/venv/bin:$PATH
+
+FROM python AS builder
+ARG TARGETARCH
+RUN python -m venv /opt/venv
+WORKDIR /app
+COPY requirements.txt ./
+# hadolint ignore=DL3042
+RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true \
+    --mount=type=cache,id=pip-${TARGETARCH},target=/root/.cache/pip,sharing=locked \
+    pip install -r requirements.txt
+
+FROM builder AS test
+ARG TARGETARCH
+COPY requirements-dev.txt ./
+# hadolint ignore=DL3042
+RUN --mount=type=secret,id=pipconf,target=/etc/pip.conf,required=true \
+    --mount=type=cache,id=pip-${TARGETARCH},target=/root/.cache/pip,sharing=locked \
+    pip install -r requirements-dev.txt
+COPY worker ./worker
+COPY tests ./tests
+RUN ruff check worker tests \
+ && python -m pytest -q -p no:cacheprovider \
+ && touch /tmp/tests-passed
+
+FROM python AS runtime
+WORKDIR /app
+COPY --from=builder /opt/venv /opt/venv
+COPY worker ./worker
+COPY --from=test /tmp/tests-passed /tmp/tests-passed
+USER 10001:10001
+EXPOSE 9100
+HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=3 \
+    CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9100/metrics', timeout=2)"]
+
+ARG VERSION=0.0.0-dev
+ARG GIT_SHA=unknown
+ARG SOURCE_URL=https://gitlab.shop-sas.internal/platform/shop-worker
+LABEL org.opencontainers.image.title="shop-worker" \
+      org.opencontainers.image.description="Worker de traitement des commandes Shop SAS" \
+      org.opencontainers.image.vendor="Shop SAS" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.revision="${GIT_SHA}" \
+      org.opencontainers.image.source="${SOURCE_URL}"
+
+CMD ["python", "-m", "worker.main"]

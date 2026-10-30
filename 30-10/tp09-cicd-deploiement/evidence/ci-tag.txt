@@ -1,0 +1,17 @@
+==> tags semver 1.5.0 / 1.5
+  shopapi:1.5.0, shopapi:1.5
+  shop-worker:1.5.0, shop-worker:1.5
+
+==> déploiement prod : approbation manuelle
+  shopapi:1.5.0 signature vérifiée
+  shop-worker:1.5.0 signature vérifiée
+api : 2 réplica(s) -> image 1.5.0
+  nouveau shop-api-15 (localhost:5005/shopapi:1.5.0)
+  arrêt de shop-api-13
+  nouveau shop-api-16 (localhost:5005/shopapi:1.5.0)
+  arrêt de shop-api-14
+terminé en 27s
+shop-api-15  localhost:5005/shopapi:1.5.0  Up 25 seconds (healthy)
+shop-api-16  localhost:5005/shopapi:1.5.0  Up 12 seconds (healthy)
+
+PIPELINE TAG : OK (1.5.0 en prod)

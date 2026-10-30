@@ -1,0 +1,9 @@
+$ VERSION=1.4.2 ./deploy/rolling-update.sh   (rollback)
+api : 2 réplica(s) -> image 1.4.2
+  nouveau shop-api-13 (localhost:5005/shopapi:1.4.2)
+  arrêt de shop-api-11
+  nouveau shop-api-14 (localhost:5005/shopapi:1.4.2)
+  arrêt de shop-api-12
+terminé en 26s
+shop-api-13  localhost:5005/shopapi:1.4.2  Up 25 seconds (healthy)
+shop-api-14  localhost:5005/shopapi:1.4.2  Up 12 seconds (healthy)

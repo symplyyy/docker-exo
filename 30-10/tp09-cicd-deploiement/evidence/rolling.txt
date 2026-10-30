@@ -1,0 +1,9 @@
+$ VERSION=sha-afdcf2d ./deploy/rolling-update.sh
+api : 2 réplica(s) -> image sha-afdcf2d
+  nouveau shop-api-11 (localhost:5005/shopapi:sha-afdcf2d)
+  arrêt de shop-api-10
+  nouveau shop-api-12 (localhost:5005/shopapi:sha-afdcf2d)
+  arrêt de shop-api-9
+terminé en 42s
+shop-api-11  localhost:5005/shopapi:sha-afdcf2d  Up 39 seconds (healthy)
+shop-api-12  localhost:5005/shopapi:sha-afdcf2d  Up 16 seconds (healthy)

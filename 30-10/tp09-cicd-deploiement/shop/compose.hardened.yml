@@ -1,0 +1,91 @@
+x-hardening: &hardening
+  read_only: true
+  cap_drop:
+    - ALL
+  deploy:
+    resources:
+      limits:
+        pids: 100
+
+services:
+  socket-proxy:
+    <<: *hardening
+    image: tecnativa/docker-socket-proxy:v0.4.1
+    user: "65534:0"
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      CONTAINERS: 1
+      NETWORKS: 1
+      SERVICES: 0
+      TASKS: 0
+      POST: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    tmpfs:
+      - /tmp
+      - /run:uid=65534,gid=0
+    networks:
+      - socket
+    deploy:
+      resources:
+        limits:
+          cpus: "0.10"
+          memory: 64M
+          pids: 50
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: unless-stopped
+
+  traefik:
+    <<: *hardening
+    user: "65534:65534"
+    command:
+      - --providers.docker=true
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=shop_front
+      - --entrypoints.web.address=:8000
+      - --ping=true
+      - --accesslog=true
+    ports: !override
+      - "80:8000"
+    volumes: !reset []
+    tmpfs:
+      - /tmp
+    networks:
+      - front
+      - socket
+    depends_on:
+      socket-proxy:
+        condition: service_started
+
+  api:
+    <<: *hardening
+    tmpfs:
+      - /tmp
+
+  worker:
+    <<: *hardening
+    tmpfs:
+      - /tmp
+
+  db:
+    <<: *hardening
+    user: "70:70"
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql:uid=70,gid=70,mode=0775
+
+  redis:
+    <<: *hardening
+    user: "999:1000"
+    tmpfs:
+      - /tmp
+
+networks:
+  socket:
+    internal: true

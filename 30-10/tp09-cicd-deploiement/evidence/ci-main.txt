@@ -1,0 +1,50 @@
+
+==> lint : hadolint
+  apps/shopapi/Dockerfile OK
+  apps/shop-worker/Dockerfile OK
+
+==> lint : docker compose config
+  compose.yml OK
+  compose.prod.yml OK
+
+==> tests : build de l'étape test
+  shopapi : tests OK
+  shop-worker : tests OK
+
+==> build multi-arch + push sha-afdcf2d (provenance + sbom)
+  localhost:5005/shopapi:sha-afdcf2d
+  localhost:5005/shop-worker:sha-afdcf2d
+
+==> scan trivy (bloquant : HIGH/CRITICAL corrigeables)
+│                                Target                                 │   Type   │ Vulnerabilities │ Secrets │
+│ registry.local:5000/shopapi:sha-afdcf2d (alpine 3.23.7)               │  alpine  │        0        │    -    │
+│ app/node_modules/@ioredis/commands/package.json                       │ node-pkg │        0        │    -    │
+│ app/node_modules/@opentelemetry/api/package.json                      │ node-pkg │        0        │    -    │
+│ app/node_modules/@pinojs/redact/package.json                          │ node-pkg │        0        │    -    │
+  shopapi : 0 vulnérabilité bloquante
+│                                      Target                                      │    Type    │ Vulnerabilities │ Secrets │
+│ registry.local:5000/shop-worker:sha-afdcf2d (debian 13.7)                        │   debian   │        0        │    -    │
+│ opt/venv/lib/python3.12/site-packages/pip-25.0.1.dist-info/METADATA              │ python-pkg │        0        │    -    │
+│ opt/venv/lib/python3.12/site-packages/prometheus_client-0.20.0.dist-info/METADA- │ python-pkg │        0        │    -    │
+│ TA                                                                               │            │                 │         │
+  shop-worker : 0 vulnérabilité bloquante
+
+==> signature cosign
+  shopapi@sha256:78d6a49e11eb... signé
+  shop-worker@sha256:2ae8c2fe1227... signé
+
+==> déploiement préprod (contexte docker preprod)
+  shopapi:sha-afdcf2d signature vérifiée
+  shop-worker:sha-afdcf2d signature vérifiée
+ api Pulling 
+ api Pulled 
+api : 2 réplica(s) -> image sha-afdcf2d
+  nouveau shop-api-3 (localhost:5005/shopapi:sha-afdcf2d)
+  arrêt de shop-api-1
+  nouveau shop-api-4 (localhost:5005/shopapi:sha-afdcf2d)
+  arrêt de shop-api-2
+terminé en 31s
+shop-api-3  localhost:5005/shopapi:sha-afdcf2d  Up 25 seconds (healthy)
+shop-api-4  localhost:5005/shopapi:sha-afdcf2d  Up 12 seconds (healthy)
+
+PIPELINE MAIN : OK (sha-afdcf2d déployé en préprod)

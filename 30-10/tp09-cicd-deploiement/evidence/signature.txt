@@ -1,0 +1,9 @@
+$ cosign verify --key ci/cosign.pub registry.local:5000/shopapi:1.5.0
+WARNING: Skipping tlog verification is an insecure practice that lacks transparency and auditability verification for the signature.
+Verification for registry.local:5000/shopapi:1.5.0 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - The signatures were verified against the specified public key
+[{"critical":{"identity":{"docker-reference":"registry.local:5000/shopapi"},"image":{"docker-manifest-digest":"sha256:cf78e30b0cc133a6b5be00f9235e154a032251be83fbc3849fbfb7562d4f5711"},"type":"cosign 
+$ cosign verify (image non signée : shopapi:1.4.2)
+error during command execution: no matching signatures: invalid signature when validating ASN.1 encoded signature

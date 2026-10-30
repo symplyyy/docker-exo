@@ -1,0 +1,18 @@
+
+==> lint : hadolint
+  apps/shopapi/Dockerfile OK
+  apps/shop-worker/Dockerfile OK
+
+==> lint : docker compose config
+  compose.yml OK
+  compose.prod.yml OK
+
+==> tests : build de l'étape test
+  shopapi : tests OK
+  shop-worker : tests OK
+
+==> build des images (sans push)
+  shopapi OK
+  shop-worker OK
+
+PIPELINE PR : OK

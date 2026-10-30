@@ -1,0 +1,58 @@
+x-hardening: &hardening
+  read_only: true
+  tmpfs:
+    - /tmp
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  api:
+    <<: *hardening
+    build: !reset null
+    image: ${REGISTRY:?REGISTRY doit être défini}/shopapi:${VERSION:?VERSION doit être défini}
+    stop_grace_period: 15s
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+  worker:
+    <<: *hardening
+    build: !reset null
+    image: ${REGISTRY:?REGISTRY doit être défini}/shop-worker:${WORKER_VERSION:?WORKER_VERSION doit être défini}
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
+  db:
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  redis:
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
+  traefik:
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M

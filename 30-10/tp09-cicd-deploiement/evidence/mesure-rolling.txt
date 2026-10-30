@@ -1,0 +1,11 @@
+   5s  ok=500 échecs=0
+  10s  ok=1000 échecs=0
+  15s  ok=1500 échecs=0
+  20s  ok=2000 échecs=0
+  25s  ok=2500 échecs=0
+  30s  ok=2983 échecs=1
+  35s  ok=3499 échecs=1
+  40s  ok=3999 échecs=1
+  45s  ok=4499 échecs=1
+  50s  ok=4999 échecs=1
+total=5000 ok=4999 échecs=1 {502: 1}

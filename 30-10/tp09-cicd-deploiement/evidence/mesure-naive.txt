@@ -1,0 +1,9 @@
+   5s  ok=500 échecs=0
+  10s  ok=980 échecs=19
+  15s  ok=1008 échecs=492
+  20s  ok=1481 échecs=519
+  25s  ok=1981 échecs=519
+  30s  ok=2481 échecs=519
+  35s  ok=2981 échecs=519
+  40s  ok=3481 échecs=519
+total=4000 ok=3481 échecs=519 {502: 19, 404: 500}
