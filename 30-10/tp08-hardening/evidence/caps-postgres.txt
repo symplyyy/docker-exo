@@ -1,0 +1,17 @@
+== cap_add: aucune -> running=false
+chmod: /var/lib/postgresql/data: Operation not permitted
+chmod: /var/run/postgresql: Operation not permitted
+error: failed switching to "postgres": operation not permitted
+== cap_add: CHOWN -> running=false
+chmod: /var/lib/postgresql/data: Operation not permitted
+chmod: /var/run/postgresql: Operation not permitted
+error: failed switching to "postgres": operation not permitted
+== cap_add: CHOWN SETUID SETGID -> running=true
+2026-10-30 11:20:42.588 UTC [41] LOG:  database system is ready to accept connections
+2026-10-30 11:20:42.803 UTC [1] LOG:  database system is ready to accept connections
+chmod: /var/lib/postgresql/data: Operation not permitted
+== cap_add: CHOWN SETUID SETGID FOWNER -> running=false
+find: /var/lib/postgresql/data: Permission denied
+== cap_add: CHOWN SETUID SETGID FOWNER DAC_OVERRIDE -> running=true
+2026-10-30 11:20:45.449 UTC [41] LOG:  database system is ready to accept connections
+2026-10-30 11:20:45.667 UTC [1] LOG:  database system is ready to accept connections

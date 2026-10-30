@@ -1,0 +1,33 @@
+### --read-only
+touch: /x: Read-only file system
+exit=1
+touch /tmp/x OK
+
+### --cap-drop ALL
+ping OK (défaut)
+chown OK (défaut)
+PING 1.1.1.1 (1.1.1.1): 56 data bytes
+64 bytes from 1.1.1.1: seq=0 ttl=42 time=12.068 ms
+
+--- 1.1.1.1 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 12.068/12.068/12.068 ms
+chown: /etc/motd: Operation not permitted
+ping OK avec NET_RAW
+chown OK avec CHOWN
+/usr/bin/curl
+apk add OK avec CHOWN DAC_OVERRIDE FOWNER
+
+### no-new-privileges (setuid)
+-rwsr-xr-x    1 root     root        141896 Apr  2  2024 /usr/bin/passwd
+uid=1000 gid=0(root) groups=0(root)
+-rwxr-xr-x    1 root     root        919232 Nov 23  2025 /bin/busybox
+uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel),11(floppy),20(dialout),26(tape),27(video)
+sudo: The "no new privileges" flag is set, which prevents sudo from running as root.
+sudo: If sudo is running in a container, you may need to adjust the container configuration to disable the flag.
+### précisions cap-drop
+0	2147483647
+apk add exit=0
+ping: permission denied (are you root?)
+ping OK avec NET_RAW (raw socket)
+apk add avec CHOWN seul exit=0

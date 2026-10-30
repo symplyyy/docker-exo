@@ -1,0 +1,15 @@
+$ ./smoke-test.sh (stack compose.yml + compose.prod.yml + compose.hardened.yml)
+OK   /ready
+OK   /products en cache (X-Cache)
+OK   POST /orders
+OK   commande traitée par le worker
+exit=0
+
+$ le proxy refuse les écritures (POST) et les endpoints non autorisés
+GET /containers/json -> 200
+POST /containers/create -> 403
+GET /images/json -> 403
+GET /secrets -> 403
+
+$ traefik ne voit plus la socket
+0

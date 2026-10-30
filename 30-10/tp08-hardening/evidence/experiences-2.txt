@@ -1,0 +1,28 @@
+### --pids-limit 50
+sans limite: 105 lignes ps
+
+### --memory 32m
+ExitCode=137 OOMKilled=true
+
+### --user 1000
+uid=1000 gid=0(root) groups=0(root)
+total 0
+-rw-r--r--    1 0        0                0 Oct 30 11:18 f
+touch: /data/g: Permission denied
+exit=1
+
+### seccomp
+unshare: unshare(0x10000000): Operation not permitted
+exit=0
+uid=65534(nobody) gid=65534(nobody) groups=65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody),65534(nobody)
+[name=seccomp,profile=builtin name=cgroupns]
+### --pids-limit 50 (bis)
+
+### seccomp : profil par défaut de moby
+curl: (56) The requested URL returned error: 404
+### --pids-limit 50 (bis)
+   1 sh: can't fork: Resource temporarily unavailable
+
+### seccomp : profil par défaut (moby/profiles)
+defaultAction: SCMP_ACT_ERRNO
+syscalls autorisés: 426

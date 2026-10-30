@@ -1,0 +1,8 @@
+CONTENEUR                  USER       PRIV  CAP_ADD        CAP_DROP       RO   MEM      PIDS   NNP  SOCKET ECARTS
+shop-api-1                 node       false -              ALL            oui  256M     -      oui  non    no_pids_limit
+shop-worker-1              10001:10001 false -              ALL            oui  128M     -      oui  non    no_pids_limit
+shop-api-2                 node       false -              ALL            oui  256M     -      oui  non    no_pids_limit
+shop-db-1                  root       false -              -              non  512M     -      oui  non    root cap_drop rootfs_rw no_pids_limit
+shop-redis-1               root       false -              -              non  128M     -      oui  non    root cap_drop rootfs_rw no_pids_limit
+shop-traefik-1             root       false -              -              non  128M     -      oui  OUI    root cap_drop rootfs_rw no_pids_limit docker_sock
+écarts : 16

@@ -1,0 +1,9 @@
+CONTENEUR                  USER       PRIV  CAP_ADD        CAP_DROP       RO   MEM      PIDS   NNP  SOCKET ECARTS
+shop-socket-proxy-1        65534:0    false -              ALL            oui  64M      50     oui  OUI    docker_sock
+shop-api-2                 node       false -              ALL            oui  256M     100    oui  non    OK
+shop-api-1                 node       false -              ALL            oui  256M     100    oui  non    OK
+shop-worker-1              10001:10001 false -              ALL            oui  128M     100    oui  non    OK
+shop-db-1                  70:70      false -              ALL            oui  512M     100    oui  non    OK
+shop-traefik-1             65534:65534 false -              ALL            oui  128M     100    oui  non    OK
+shop-redis-1               999:1000   false -              ALL            oui  128M     100    oui  non    OK
+écarts : 1
